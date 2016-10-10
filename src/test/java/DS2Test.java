@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,26 +34,24 @@ public class DS2Test {
         assertEquals(expected, result);
     }
 
-    private void testRecursiveRodInputFile(String filename) throws FileNotFoundException {
+    private void testRecursiveRodInputFile(String filename) throws FileNotFoundException, URISyntaxException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filename).getFile());
+        File file = new File(classLoader.getResource(filename).toURI());
         int[] input = Util.readInput(file.getAbsolutePath());
         int expected = Util.readInput(file.getAbsolutePath() + ".ref")[0];
         testRecursiveRodCutting(input, expected);
     }
 
-    private void testDynamicRodInputFile(String filename) throws FileNotFoundException {
+    private void testDynamicRodInputFile(String filename) throws FileNotFoundException, URISyntaxException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filename).getFile());
-        int[] input = Util.readInput(file.getAbsolutePath());
+        File file = new File(classLoader.getResource(filename).toURI());        int[] input = Util.readInput(file.getAbsolutePath());
         int expected = Util.readInput(file.getAbsolutePath() + ".ref")[0];
         testDynamicRodCutting(input, expected);
     }
 
-    private void testMatrixInputFile(String filename) throws FileNotFoundException {
+    private void testMatrixInputFile(String filename) throws FileNotFoundException, URISyntaxException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(filename).getFile());
-        int[][] input = Util.readMatrix(file.getAbsolutePath());
+        File file = new File(classLoader.getResource(filename).toURI());        int[][] input = Util.readMatrix(file.getAbsolutePath());
         int expected = Util.readInput(file.getAbsolutePath() + ".ref")[0];
         testMatrix(input, expected);
     }
@@ -76,12 +75,12 @@ public class DS2Test {
     }
 
     @Test(timeout=500)
-    public void testBasicRecursiveRodIncreasing() throws FileNotFoundException {
+    public void testBasicRecursiveRodIncreasing() throws FileNotFoundException, URISyntaxException {
         testRecursiveRodInputFile("input/10_inc.1.inp");
     }
 
     @Test(timeout=500)
-    public void testBasicRecursiveRodNonIncreasing() throws FileNotFoundException {
+    public void testBasicRecursiveRodNonIncreasing() throws FileNotFoundException, URISyntaxException {
         testRecursiveRodInputFile("input/10_ninc.1.inp");
     }
 
@@ -96,12 +95,12 @@ public class DS2Test {
     }
 
     @Test(timeout=100)
-    public void testBasicDynamicRodIncreasing() throws FileNotFoundException {
+    public void testBasicDynamicRodIncreasing() throws FileNotFoundException, URISyntaxException {
         testDynamicRodInputFile("input/10_inc.1.inp");
     }
 
     @Test(timeout=100)
-    public void testBasicDynamicRodNonIncreasing() throws FileNotFoundException {
+    public void testBasicDynamicRodNonIncreasing() throws FileNotFoundException, URISyntaxException {
         testDynamicRodInputFile("input/10_ninc.1.inp");
     }
 
@@ -140,7 +139,7 @@ public class DS2Test {
     }
 
     @Test(timeout=4000)
-    public void testLargeMatrix() throws FileNotFoundException {
+    public void testLargeMatrix() throws FileNotFoundException, URISyntaxException {
         testMatrixInputFile("input/1000x1000_pos.3.inp");
 
     }
